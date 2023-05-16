@@ -2,14 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
-    <link 
-    rel="stylesheet" 
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" 
-    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" 
-    crossorigin="anonymous" 
-    referrerpolicy="no-referrer" 
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/style.css">
     <title>TODOAPP</title>
   </head>
@@ -17,7 +10,7 @@
     <header>
       <h1>TODOAPP</h1>
     </header>
-    <form method="POST" action="http://localhost:3069/todos">
+    <form method="POST" action="http://localhost:3069/todos" id="todoapp">
       <input type="text" class="todo-input" name="todos" placeholder="e.g., sweeping the floor">
       <button class="todo-button" type="submit">
         <i class="fas fa-plus-square"></i>   
@@ -29,19 +22,19 @@
           <option value="pending">Pending</option> 
         </select>
       </div>
-      <button href="./login.html">Accomplish</button>
+      <button id="logout-btn">Log Out</button>
     </form>
     <div class="todo-container">
       <ul class="todo-list"></ul>
     </div>
-    <form method="POST" action="http://localhost:3069/login">
+    <form method="POST" action="http://localhost:3069/login" id="login">
       <div>
         <input type="text" name="username" placeholder="Username">
       </div>
       <div>
         <input type="password" name="password" placeholder="Password">
       </div>
-      <button href="./todoapp.html">Log In</button>
+      <button id="login-btn">Log In</button>
     </form>
     <script type="module" src="/main.js"></script> 
   </body>

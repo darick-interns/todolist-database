@@ -139,3 +139,7 @@ select {
 	color: #2a475e;
 }
 
+#todoapp {
+  display: none;
+}
+

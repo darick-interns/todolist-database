@@ -1,105 +1,105 @@
-  import axios from 'axios'
+import axios from 'axios'
 
-   //Selectors
-  const todoInput = document.querySelector('.todo-input');
-  const todoButton = document.querySelector('.todo-button');
-  const todoList = document.querySelector('.todo-list');
-  const filterOption = document.querySelector(".filter-todo");
+//Selectors
+const todoInput = document.querySelector('.todo-input');
+const todoButton = document.querySelector('.todo-button');
+const todoList = document.querySelector('.todo-list');
+const filterOption = document.querySelector(".filter-todo");
 
-  //Event listeners
-  document.addEventListener("DOMContentLoaded", getTodos);
-  todoButton.addEventListener("click", addTodo);
-  todoList.addEventListener("click", deleteCheck);
-  filterOption.addEventListener("click", filterTodo);
+//Event listeners
+document.addEventListener("DOMContentLoaded", getTodos);
+todoButton.addEventListener("click", addTodo);
+todoList.addEventListener("click", deleteCheck);
+filterOption.addEventListener("click", filterTodo);
 
-  //Functions
+//Functions
 
-  function addTodo(event) {
-  	//Prevent form from submitting
-  	event.preventDefault();
-  	//Todo DIV
-  	const todoDiv = document.createElement("div");
-  	todoDiv.classList.add("todo");
-  	//Create LI
-  	const newTodo = document.createElement("li");
-  	newTodo.innerText = todoInput.value;
-  	newTodo.classList.add("todo-item");
-  	todoDiv.appendChild(newTodo);
-  	//ADD TODO TO LOCALSTORAGE
-  	saveLocalTodos(todoInput.value);
-  	//CHECK MARK BUTTON
-  	const completedButton = document.createElement("button");
-  	completedButton.innerHTML = '<i class="fas fa-check"></i>';
-  	completedButton.classList.add("complete-btn");
-  	todoDiv.appendChild(completedButton);
-  	//CHECK close BUTTON
-  	const closeButton = document.createElement("button");
-  	closeButton.innerHTML = '<i class="fas fa-x"></i>';
-  	closeButton.classList.add("close-btn");
-  	todoDiv.appendChild(closeButton); 
-  	//APPEND TO LIST
-  	todoList.appendChild(todoDiv);
-  	//Clear Todo INPUT VALUE
-  	todoInput.value = "";
-  }
+function addTodo(event) {
+  //Prevent form from submitting
+  event.preventDefault();
+  //Todo DIV
+  const todoDiv = document.createElement("div");
+  todoDiv.classList.add("todo");
+  //Create LI
+  const newTodo = document.createElement("li");
+  newTodo.innerText = todoInput.value;
+  newTodo.classList.add("todo-item");
+  todoDiv.appendChild(newTodo);
+  //ADD TODO TO LOCALSTORAGE
+  saveLocalTodos(todoInput.value);
+  //CHECK MARK BUTTON
+  const completedButton = document.createElement("button");
+  completedButton.innerHTML = '<i class="fas fa-check"></i>';
+  completedButton.classList.add("complete-btn");
+  todoDiv.appendChild(completedButton);
+  //CHECK close BUTTON
+  const closeButton = document.createElement("button");
+  closeButton.innerHTML = '<i class="fas fa-x"></i>';
+  closeButton.classList.add("close-btn");
+  todoDiv.appendChild(closeButton); 
+  //APPEND TO LIST
+  todoList.appendChild(todoDiv);
+  //Clear Todo INPUT VALUE
+  todoInput.value = "";
+}
 
-  function deleteCheck(e) {
-  	const item = e.target;
-  	//DELETE TODO
-  	if(item.classList[0] === "close-btn") {
-  		const todo = item.parentElement;
-  		//Animation
-  		todo.classList.add("fall");
-      removeLocalTodos(todo);
-  		todo.addEventListener('transitionend', function() {
-  			todo.remove();
-  		});
-  	}
-
-  	//CHECK MARK
-  	if(item.classList[0] === "complete-btn") {
-  		const todo = item.parentElement;
-  		todo.classList.toggle("completed");
-  	}
-  }
-
-  function filterTodo(e) {
-  	const todos = todoList.childNodes;
-  	todos.forEach(function(todo) {
-  	  switch (e.target.value) {
-  		case "all":
-  		  todo.style.display = "flex";
-  		  break;
-  		case "completed":
-  		  if (todo.classList.contains("completed")) {
-  		    todo.style.display = "flex";
-  		  } else {
-  			todo.style.display = "none";
-  		  }
-  		  break;
-  		case "pending":
-  		  if(!todo.classList.contains("completed")){
-  		  	todo.style.display = "flex";
-  		  } else {
-  			todo.style.display = "none";	
-  		  }
-  		  break;
-  	  }
+function deleteCheck(e) {
+  const item = e.target;
+  //DELETE TODO
+  if(item.classList[0] === "close-btn") {
+  	const todo = item.parentElement;
+  	//Animation
+  	todo.classList.add("fall");
+    removeLocalTodos(todo);
+  	todo.addEventListener('transitionend', function() {
+  		todo.remove();
   	});
   }
 
-  function saveLocalTodos(todo) {
-  	//CHECK---HEY Do i already have thing in there?
-  	let todos;
-  	if (localStorage.getItem("todos") === null) {
-  	  todos = [];
-  	} else {
-      todos = JSON.parse(localStorage.getItem("todos"));
-  	}
-
-  	todos.push(todo);
-  	localStorage.setItem("todos", JSON.stringify(todos));
+  //CHECK MARK
+  if(item.classList[0] === "complete-btn") {
+  	const todo = item.parentElement;
+  	todo.classList.toggle("completed");
   }
+}
+
+function filterTodo(e) {
+  const todos = todoList.childNodes;
+  todos.forEach(function(todo) {
+  	 switch (e.target.value) {
+  	case "all":
+  		todo.style.display = "flex";
+  		break;
+  	case "completed":
+  		if (todo.classList.contains("completed")) {
+  		  todo.style.display = "flex";
+  		} else {
+  		todo.style.display = "none";
+  		}
+  		break;
+  	case "pending":
+  		if(!todo.classList.contains("completed")){
+  		  todo.style.display = "flex";
+  		} else {
+  		todo.style.display = "none";	
+  		}
+  		break;
+  	 }
+  });
+}
+
+function saveLocalTodos(todo) {
+  //CHECK---HEY Do i already have thing in there?
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+  	 todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+
+  todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
 
   function getTodos() {
     //CHECK---HEY Do i already have thing in there?
@@ -146,6 +146,16 @@
     todos.splice(todos.indexOf(todoIndex), 1);
     localStorage.setItem("todos", JSON.stringify(todos));
   }
+
+
+  document.getElementById('login-btn').addEventListener('click', function() {
+    document.getElementById('login').style.display = 'block'
+    document.getElementById('todoapp').style.display = 'none'
+  })
+  document.getElementById('logout-btn').addEventListener('click', function() {
+    document.getElementById('todoapp').style.display = 'block'
+    document.getElementById('login').style.display = 'none'
+  })
 
 
 
