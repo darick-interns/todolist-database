@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 //Selectors
 const todoInput = document.querySelector('.todo-input');
 const todoButton = document.querySelector('.todo-button');
@@ -101,61 +99,55 @@ function saveLocalTodos(todo) {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-  function getTodos() {
-    //CHECK---HEY Do i already have thing in there?
-    let todos;
-    if (localStorage.getItem("todos") === null) {
-      todos = [];
-    } else {
-      todos = JSON.parse(localStorage.getItem("todos"));
-    }
-    todos.forEach(function(todo){
-      //Todo DIV
-      const todoDiv = document.createElement("div");
-      todoDiv.classList.add("todo");
-      //Create LI
-      const newTodo = document.createElement("li");
-      newTodo.innerText = todo;
-      newTodo.classList.add("todo-item");
-      todoDiv.appendChild(newTodo);
+function getTodos() {
+  //CHECK---HEY Do i already have thing in there?
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  todos.forEach(function(todo){
+    //Todo DIV
+    const todoDiv = document.createElement("div");
+    todoDiv.classList.add("todo");
+    //Create LI
+    const newTodo = document.createElement("li");
+    newTodo.innerText = todo;
+    newTodo.classList.add("todo-item");
+    todoDiv.appendChild(newTodo);
       
-      //CHECK MARK BUTTON
-      const completedButton = document.createElement("button");
-      completedButton.innerHTML = '<i class="fas fa-check"></i>';
-      completedButton.classList.add("complete-btn");
-      todoDiv.appendChild(completedButton);
-      //CHECK close BUTTON
-      const closeButton = document.createElement("button");
-      closeButton.innerHTML = '<i class="fas fa-x"></i>';
-      closeButton.classList.add("close-btn");
-      todoDiv.appendChild(closeButton); 
-      //APPEND TO LIST
-      todoList.appendChild(todoDiv);
-    });
+    //CHECK MARK BUTTON
+    const completedButton = document.createElement("button");
+    completedButton.innerHTML = '<i class="fas fa-check"></i>';
+    completedButton.classList.add("complete-btn");
+    todoDiv.appendChild(completedButton);
+    //CHECK close BUTTON
+    const closeButton = document.createElement("button");
+    closeButton.innerHTML = '<i class="fas fa-x"></i>';
+    closeButton.classList.add("close-btn");
+    todoDiv.appendChild(closeButton); 
+    //APPEND TO LIST
+    todoList.appendChild(todoDiv);
+  });
+}
+
+function removeLocalTodos(todo){
+  //CHECK---HEY Do i already have thing in there?
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
   }
-
-  function removeLocalTodos(todo){
-    //CHECK---HEY Do i already have thing in there?
-    let todos;
-    if (localStorage.getItem("todos") === null) {
-      todos = [];
-    } else {
-      todos = JSON.parse(localStorage.getItem("todos"));
-    }
-    const todoIndex = todo.children[0].innerText;
-    todos.splice(todos.indexOf(todoIndex), 1);
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }
+  const todoIndex = todo.children[0].innerText;
+  todos.splice(todos.indexOf(todoIndex), 1);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
 
 
-  document.getElementById('login-btn').addEventListener('click', function() {
-    document.getElementById('login').style.display = 'block'
-    document.getElementById('todoapp').style.display = 'none'
-  })
-  document.getElementById('logout-btn').addEventListener('click', function() {
-    document.getElementById('todoapp').style.display = 'block'
-    document.getElementById('login').style.display = 'none'
-  })
+
+
 
 
 

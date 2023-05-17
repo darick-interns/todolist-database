@@ -1,3 +1,6 @@
+import * as url from "url";
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
@@ -12,10 +15,11 @@ app.use(cors())
 app.use(session({
 	secret: 'todoapp',
 	resave: false,
-	saveUninitialized: true
+	saveUninitialized: false
 }))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded())
+app.use(express.static('public'))
 
 function isAuth(req, res, next) {
 	if (req.session.user) {
@@ -36,7 +40,7 @@ app.post('/login', (req, res) => {
 			req.session.user = { username: username }
 			req.session.save(function (err) {
 				if (err) return next(err) 
-			    res.json('Log in Successfully')
+			    res.sendFile(__dirname + '/public/app.html')
 			})	
 		} else {
 			res.json('The username or password is invalid')
@@ -44,13 +48,13 @@ app.post('/login', (req, res) => {
 	})
 })
 
-app.get('/logout', isAuth, (req, res) => {
+app.post('/logout', (req, res) => {
 	req.session.user = null
 	req.session.save(function (err) {
 		if (err) next(err)
 		req.session.regenerate(function (err) {
 				if (err) next(err)
-				res.json('Logged out Successfully')
+				res.redirect('http://localhost:5173/')
 		})
 	})
 })
@@ -63,20 +67,20 @@ app.get('/todos', isAuth, (req, res) => {
 	})
 })
 
-app.get('/todos/:id', (req, res) => {
-	const { id } = req.params
-	const sql = "SELECT * FROM todos WHERE id = ?"
-	db.get(sql, id, (err, row) => {
-		res.json(row)
-	})
-})
-
 app.post('/todos', (req, res) => {
 	const { todo, completed } = req.body
 	const sql = "INSERT INTO todos (todo, completed) VALUES (?, 0)"
 	db.run(sql, [todo, completed], () => {
 		res.json(req.body)
 	}) 
+})
+
+app.get('/todos/:id', (req, res) => {
+	const { id } = req.params
+	const sql = "SELECT * FROM todos WHERE id = ?"
+	db.get(sql, id, (err, row) => {
+		res.json(row)
+	})
 })
 
 app.put('/todos/:id', (req, res) => {
