@@ -12,12 +12,15 @@ body {
 }
 
 header {
+  min-height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 24px;	
 }
 
-header,
 form {
-  min-height: 20vh;
+  min-height: 7vh;
   display: flex;
   justify-content: center;
   align-items: center;

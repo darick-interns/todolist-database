@@ -75,7 +75,7 @@ function filterTodo(e) {
   		todo.style.display = "none";
   		}
   		break;
-  	case "pending":
+  	case "active":
   		if(!todo.classList.contains("completed")){
   		  todo.style.display = "flex";
   		} else {
@@ -144,6 +144,8 @@ function removeLocalTodos(todo){
   todos.splice(todos.indexOf(todoIndex), 1);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
+
+
 
 
 

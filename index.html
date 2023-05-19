@@ -3,26 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" 
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer" 
+    />
     <link rel="stylesheet" href="/style.css">
-    <title>TODOAPP - Log In</title>
+    <title>TODOAPP</title>
   </head>
   <body>
     <header>
       <h1>TODOAPP</h1>
     </header>
-    <section id="login">
-      <form method="POST" action="http://localhost:3069/login">
-        <div>
-          <input type="text" name="username" placeholder="Username" id="username">
-        </div>
-        <div>
-          <input type="password" name="password" placeholder="Password" id="password">
-        </div>
-        <button>Log In</button>
+    <section id="users">
+      <form method="POST" action="http://localhost:3069/form">
+        <button id="register">Register</button>
       </form>
+      <form method="POST" action="http://localhost:3069/logout">
+        <button id="logout">Log Out</button>
+      </form> 
     </section>
+    <form method="POST" action="http://localhost:3069/todos">
+      <input type="text" class="todo-input" name="todos" placeholder="e.g., sweeping the floor">
+      <button class="todo-button" type="submit">
+        <i class="fas fa-plus-square"></i>   
+      </button>
+      <div class="select">
+        <select name="todos" class="filter-todo">
+          <option value="all">All</option>
+          <option value="completed">Completed</option>
+          <option value="active">Active</option> 
+        </select>
+      </div>
+      <button>Post</button>
+    </form>
+    <div class="todo-container">
+      <ul class="todo-list"></ul>
+    </div>
+    <script type="module" src="/main.js"></script> 
   </body>
 </html>
-
-
-

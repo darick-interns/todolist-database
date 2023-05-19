@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: linear-gradient(120deg,#171a21, #1b2838);
+  color: white;
+  font-family: "Arial";
+  min-height: 100vh;
+}
+
+header {
+  font-size: 24px;	
+}
+
+header,
+form {
+  min-height: 20vh;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+form input, 
+form button {
+  padding: 8px;
+  font-size: 32px;
+  border-radius: 10px;
+  background: white;
+}
+
+form button {
+  color: white;
+  background: #66c0f4;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+form button:hover {
+  background: white;
+  color: #66c0f4;
+}
+
+
